@@ -42,9 +42,6 @@
     <ClInclude Include="Regular.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Chessman.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -76,6 +73,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Chessman.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

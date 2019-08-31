@@ -117,9 +117,9 @@
   <ItemGroup>
     <ClInclude Include="Bishop.h" />
     <ClInclude Include="ChessBoard.h" />
+    <ClInclude Include="Chessman.h" />
     <ClInclude Include="Coating.h" />
     <ClInclude Include="Debug.h" />
-    <ClInclude Include="Chessman.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="King.h" />
     <ClInclude Include="Knight.h" />
