@@ -7,7 +7,7 @@ namespace Chess
     class Rook : public Chess::Chessman
     {
     public:
-        Rook(Color c, ptr<Chess::BRD::ChessBoard> b) :Chessman(c, b) {};
+        Rook(Color c, Chess::BRD::ChessBoard* b) :Chessman(c, b) {};
         bool isValidMove(Move m) override;
     };
 }

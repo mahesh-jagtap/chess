@@ -8,34 +8,34 @@ ChessBoard::ChessBoard()
 {
     for (Position i = 9; i <= 16; i++)
     {
-        m_board.insert(std::make_pair(i, make_ptr<Chess::Pawn>(Color::white)));
+        //m_board.insert(std::make_pair(i, make_ptr<Chess::Pawn>(Color::white)));
     }
 
     for (Position i = 49; i <= 56; i++)
     {
-        m_board.insert(std::make_pair(i, make_ptr<Chess::Pawn>(Color::black)));
+        //m_board.insert(std::make_pair(i, make_ptr<Chess::Pawn>(Color::black)));
     }
 
-    m_board.insert(std::make_pair(1, make_ptr<Chess::Rook>(Color::white)));
-    m_board.insert(std::make_pair(8, make_ptr<Chess::Rook>(Color::white)));
-    m_board.insert(std::make_pair(57, make_ptr<Chess::Rook>(Color::black)));
-    m_board.insert(std::make_pair(64, make_ptr<Chess::Rook>(Color::black)));
+    m_board.insert(std::make_pair(1, std::make_shared<Chess::Rook>(Color::white, this)));
+    m_board.insert(std::make_pair(8, make_ptr<Chess::Rook>(Color::white, this)));
+    m_board.insert(std::make_pair(57, make_ptr<Chess::Rook>(Color::black, this)));
+    m_board.insert(std::make_pair(64, make_ptr<Chess::Rook>(Color::black, this)));
 
-    m_board.insert(std::make_pair(2, make_ptr<Chess::Knight>(Color::white)));
-    m_board.insert(std::make_pair(7, make_ptr<Chess::Knight>(Color::white)));
-    m_board.insert(std::make_pair(58, make_ptr<Chess::Knight>(Color::black)));
-    m_board.insert(std::make_pair(63, make_ptr<Chess::Knight>(Color::black)));
+    m_board.insert(std::make_pair(2, make_ptr<Chess::Knight>(Color::white, this)));
+    m_board.insert(std::make_pair(7, make_ptr<Chess::Knight>(Color::white, this)));
+    m_board.insert(std::make_pair(58, make_ptr<Chess::Knight>(Color::black, this)));
+    m_board.insert(std::make_pair(63, make_ptr<Chess::Knight>(Color::black, this)));
 
-    m_board.insert(std::make_pair(3, make_ptr<Chess::Bishop>(Color::white)));
-    m_board.insert(std::make_pair(6, make_ptr<Chess::Bishop>(Color::white)));
-    m_board.insert(std::make_pair(59, make_ptr<Chess::Bishop>(Color::black)));
-    m_board.insert(std::make_pair(62, make_ptr<Chess::Bishop>(Color::black)));
+    m_board.insert(std::make_pair(3, make_ptr<Chess::Bishop>(Color::white, this)));
+    m_board.insert(std::make_pair(6, make_ptr<Chess::Bishop>(Color::white, this)));
+    m_board.insert(std::make_pair(59, make_ptr<Chess::Bishop>(Color::black, this)));
+    m_board.insert(std::make_pair(62, make_ptr<Chess::Bishop>(Color::black, this)));
 
-    m_board.insert(std::make_pair(5, make_ptr<Chess::King>(Color::white)));
-    m_board.insert(std::make_pair(61, make_ptr<Chess::King>(Color::black)));
+    m_board.insert(std::make_pair(5, make_ptr<Chess::King>(Color::white, this)));
+    m_board.insert(std::make_pair(61, make_ptr<Chess::King>(Color::black, this)));
 
-    m_board.insert(std::make_pair(4, make_ptr<Chess::Queen>(Color::white)));
-    m_board.insert(std::make_pair(60, make_ptr<Chess::Queen>(Color::black)));
+    m_board.insert(std::make_pair(4, make_ptr<Chess::Queen>(Color::white, this)));
+    m_board.insert(std::make_pair(60, make_ptr<Chess::Queen>(Color::black, this)));
 
 }
 
@@ -52,7 +52,7 @@ ptr<Chess::Chessman> ChessBoard::getChessman(Position p)
     if (it == m_board.end())
         return nullptr;
     
-    return it;
+    return it->second;
 }
 
 bool Chess::BRD::ChessBoard::isValidMove(Move m)
@@ -64,13 +64,13 @@ bool Chess::BRD::ChessBoard::isValidMove(Move m)
 
     Position from = m.first;
     Position to = m.second;
-    ptr<Chess::Chessman> ptr_move_chessman = m_board.find(m.first);
-    ptr<Chess::Chessman> ptr_replace_chessman = m_board.find(m.second);
+    ptr<Chess::Chessman> ptr_move_chessman = getChessman(from);  //m_board.find(m.first)->second;
+    ptr<Chess::Chessman> ptr_replace_chessman = getChessman(to); //m_board.find(m.second)->second;
 
     if (from == to)
         return false;
 
-    if (ptr_move_chessman == m_board.end())
+    if (ptr_move_chessman == nullptr)
     {
         PRINT("Invalid move. No piece available to move.");
         return false;
@@ -82,7 +82,7 @@ bool Chess::BRD::ChessBoard::isValidMove(Move m)
         return false;
     }
 
-    if (ptr_replace_chessman != m_board.end())
+    if (ptr_replace_chessman != nullptr)
     {
         if (ptr_move_chessman->getColor() == ptr_replace_chessman->getColor())
         {

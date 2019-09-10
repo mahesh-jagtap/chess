@@ -7,7 +7,7 @@ namespace Chess
     class Knight : public Chess::Chessman
     {
     public:
-        Knight(Color c, ptr<Chess::BRD::ChessBoard> b) :Chessman(c, b) {};
+        Knight(Color c, Chess::BRD::ChessBoard* b) :Chessman(c, b) {};
         bool isValidMove(Move m) override;
     };
 }

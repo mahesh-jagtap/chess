@@ -9,7 +9,7 @@ namespace Chess
     {
         bool canMoveTo(Position current_position, Position to);
     public:
-        Bishop(Color c, ptr<Chess::BRD::ChessBoard> b) :Chessman(c, b) {};
+        Bishop(Color c, Chess::BRD::ChessBoard* b) :Chessman(c, b) {};
         bool isValidMove(Move m) override;
     };
 }

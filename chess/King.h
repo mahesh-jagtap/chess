@@ -7,7 +7,7 @@ namespace Chess
     class King : public Chess::Chessman
     {
     public:
-        King(Color c, ptr<Chess::BRD::ChessBoard> b) :Chessman(c, b) {};
+        King(Color c, Chess::BRD::ChessBoard* b) :Chessman(c, b) {};
         bool isValidMove(Move m) override;
     };
 }
