@@ -107,12 +107,18 @@
     <ClCompile Include="Queen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CodingConventions.txt">
       <Filter>Source Files</Filter>
     </Text>
     <Text Include="notes.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="todo.txt">
       <Filter>Source Files</Filter>
     </Text>
   </ItemGroup>
