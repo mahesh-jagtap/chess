@@ -12,56 +12,56 @@ bool Chess::Bishop::isChessmanMove(Move m)
     Position from = m.first;
     Position to = m.second;
     Position diff = std::abs(from - to);
-    Color from_color = m_board->getChessman(from)->getColor();
 
-    if ((diff % 9 != 0) and (diff % 7 != 0))
-        return false;
-
-    Position current_position = from;
-    
-    std::vector<int> inc{ 9, 7 };
-    int factor{ 1 };
-    if (current_position > to)
-    {
-        factor = -1;
-    }
-    
-    for (auto i : inc)
-    {
-        current_position = from;
-        while (!Chess::isEdge(from))
-        {
-            current_position += factor * i;
-            ptr<Chess::Chessman> current_chessman = m_board->getChessman(current_position);
-
-            if (current_position == to and (!current_chessman or current_chessman->getColor() != from_color))
-                return true;
-
-            if (current_chessman)
-            {
-                if (current_position != to)
-                {
-                    break;
-                }
-                else //current_position==to
-                {
-                    if (current_chessman->getColor() == from_color)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-    }
-
-    return false;
+    return (diff % 9 == 0) or (diff % 7 == 0);
 }
 
 bool Chess::Bishop::isPositionReachable(Move m)
 {
+    Position from = m.first;
+    Position to = m.second;
+    Position diff = std::abs(from - to);
+    Color from_color = m_board->getChessman(from)->getColor();
+
+    Position current_position;
+
+    std::vector<int> increments{ 9, 7 };
+    int direction{ 1 };
+    if (from > to)
+    {
+        direction = -1;
+    }
+
+    for (auto i : increments)
+    {
+        int current_position = from + i * direction;
+        while (Chess::isValidPosition(current_position))
+        {
+            if (current_position == to)
+            {
+                if (!m_board->isSameColorChessman(from, to))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                //current_position is somewhere in between from and to
+
+                if (m_board->isChessmanPresent(current_position))
+                {
+                    //a Chessman is present in between from and to
+                    return false;
+                }
+            }
+
+            current_position = current_position + i * direction;
+        }
+    }
+
     return false;
 }

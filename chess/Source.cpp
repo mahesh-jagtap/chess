@@ -46,6 +46,7 @@ int main(int argc, char** argv)
         if (gm.getBoard()->isValidMove(m))
         {
             gm.getBoard()->makeMove(m);
+            gm.getBoard()->display();
         }
     }
 

@@ -5,5 +5,6 @@
 namespace Chess
 {
     bool isEdge(Position p);
+    bool isValidPosition(Position p);
 
 }

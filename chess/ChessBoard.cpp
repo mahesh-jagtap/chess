@@ -1,5 +1,6 @@
 #include "ChessBoard.h"
 #include "Debug.h"
+#include "Utility.h"
 #include <utility>
 
 using ChessBoard = Chess::BRD::ChessBoard;
@@ -8,12 +9,12 @@ ChessBoard::ChessBoard()
 {
     for (Position i = 9; i <= 16; i++)
     {
-        //m_board.insert(std::make_pair(i, make_ptr<Chess::Pawn>(Color::white)));
+        //m_board.insert(std::make_pair(i, make_ptr<Chess::Pawn>(Color::white, this)));
     }
 
     for (Position i = 49; i <= 56; i++)
     {
-        //m_board.insert(std::make_pair(i, make_ptr<Chess::Pawn>(Color::black)));
+        //m_board.insert(std::make_pair(i, make_ptr<Chess::Pawn>(Color::black, this)));
     }
 
     m_board.insert(std::make_pair(1, std::make_shared<Chess::Rook>(Color::white, this)));
@@ -45,6 +46,15 @@ void Chess::BRD::ChessBoard::makeMove(Move m)
     m_board.erase(m.first);
 }
 
+void Chess::BRD::ChessBoard::display()
+{
+    std::cout << "BOARD:::" << std::endl;
+    for (auto i : m_board)
+    {
+        std::cout << i.first << "-----" << typeid(*i.second).name() << "(" << i.second << ")" << std::endl;
+    }
+}
+
 ptr<Chess::Chessman> ChessBoard::getChessman(Position p)
 {
     auto it = m_board.find(p);
@@ -57,7 +67,15 @@ ptr<Chess::Chessman> ChessBoard::getChessman(Position p)
 
 bool Chess::BRD::ChessBoard::isSameColorChessman(Position from, Position to)
 {
+    if (!isChessmanPresent(from) or !isChessmanPresent(to))
+        return false;
+
     return getChessman(from)->getColor() == getChessman(to)->getColor();
+}
+
+bool Chess::BRD::ChessBoard::isSameColorChessman(ptr<Chess::Chessman> c1, ptr<Chess::Chessman> c2)
+{
+    return c1->getColor() == c2->getColor();
 }
 
 bool Chess::BRD::ChessBoard::isChessmanPresent(Position p)
@@ -74,8 +92,8 @@ bool Chess::BRD::ChessBoard::isValidMove(Move m)
 
     Position from = m.first;
     Position to = m.second;
-    ptr<Chess::Chessman> ptr_move_chessman = getChessman(from);  //m_board.find(m.first)->second;
-    ptr<Chess::Chessman> ptr_replace_chessman = getChessman(to); //m_board.find(m.second)->second;
+    ptr<Chess::Chessman> ptr_move_chessman = getChessman(from);
+    ptr<Chess::Chessman> ptr_replace_chessman = getChessman(to);
 
     if (from == to)
         return false;
@@ -86,7 +104,7 @@ bool Chess::BRD::ChessBoard::isValidMove(Move m)
         return false;
     }
 
-    if (m.first < 1 or m.first > 64 or m.second < 1 or m.second > 64)
+    if(!Chess::isValidPosition(m.first) or !Chess::isValidPosition(m.second))
     {
         PRINT("Invalid move. One of the position is out of the chess board.");
         return false;
@@ -94,7 +112,7 @@ bool Chess::BRD::ChessBoard::isValidMove(Move m)
 
     if (ptr_replace_chessman != nullptr)
     {
-        if (ptr_move_chessman->getColor() == ptr_replace_chessman->getColor())
+        if (isSameColorChessman(ptr_move_chessman, ptr_replace_chessman))
         {
             PRINT("Invalid move. From and To position have the same color chessman.");
             return false;

@@ -33,9 +33,13 @@ namespace Chess
 
             //Check if chessman at two positions have the same color
             bool isSameColorChessman(Position from, Position to);
+            bool isSameColorChessman(ptr<Chess::Chessman> c1, ptr<Chess::Chessman> c2);
 
             //Check if chessman is present at a position
             bool isChessmanPresent(Position p);
+
+            //Display board
+            void display();
 
         };
     }

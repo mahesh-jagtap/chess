@@ -7,3 +7,8 @@ bool Chess::isEdge(Position p)
     return edges.find(p) != edges.end();
     
 }
+
+bool Chess::isValidPosition(Position p)
+{
+    return p >= 1 and p <= 64;
+}

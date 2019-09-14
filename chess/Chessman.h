@@ -9,21 +9,19 @@ namespace Chess
     }
 
     class Chessman
-    {
+    {  
     protected:
         Color m_color;
         Chess::BRD::ChessBoard* m_board;
-        virtual bool isChessmanMove(Move m) = 0;
-        virtual bool isPositionReachable(Move m) = 0;
+        Chessman() = default;
             
     public:
-        //Chessman(Color c, ptr<Chess::BRD::ChessBoard> b) :m_color(c), m_board(b) {}
         Chessman(Color c, Chess::BRD::ChessBoard* b) :m_color(c), m_board(b) {}
         
-        bool isValidMove(Move m)
-        {
-            return isChessmanMove(m) and isPositionReachable(m);
-        }
+        virtual bool isChessmanMove(Move m) = 0;
+        virtual bool isPositionReachable(Move m) = 0;
+
+        bool isValidMove(Move m);
         
         Color getColor()
         {

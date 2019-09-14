@@ -42,13 +42,17 @@ bool Chess::Rook::isPositionReachable(Move m)
     }
 
     int current_position = from + value * direction;
-    while (!Chess::isEdge(current_position))
+    while (Chess::isValidPosition(current_position))
     {
         if (current_position==to)
         {
             if (!m_board->isSameColorChessman(from, to))
             {
                 return true;
+            }
+            else
+            {
+                return false;
             }
         }
         else
