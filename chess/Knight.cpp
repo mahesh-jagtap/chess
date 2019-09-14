@@ -1,7 +1,11 @@
 #include "Knight.h"
 #include "Utility.h"
 
-bool Chess::Knight::isValidMove(Move m)
+bool Chess::Knight::isChessmanMove(Move m)
 {
-    return true;
+    return false;
+}
+bool Chess::Knight::isPositionReachable(Move m)
+{
+    return false;
 }

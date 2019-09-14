@@ -21,9 +21,21 @@ namespace Chess
         public:
             
             ChessBoard();
+
+            //Check if the given move is valid
             bool isValidMove(Move m);
+
+            //Update the chessboard for the given move
             void makeMove(Move m);
+
+            //Return the chessman at given position
             ptr<Chessman> getChessman(Position p);
+
+            //Check if chessman at two positions have the same color
+            bool isSameColorChessman(Position from, Position to);
+
+            //Check if chessman is present at a position
+            bool isChessmanPresent(Position p);
 
         };
     }

@@ -55,6 +55,16 @@ ptr<Chess::Chessman> ChessBoard::getChessman(Position p)
     return it->second;
 }
 
+bool Chess::BRD::ChessBoard::isSameColorChessman(Position from, Position to)
+{
+    return getChessman(from)->getColor() == getChessman(to)->getColor();
+}
+
+bool Chess::BRD::ChessBoard::isChessmanPresent(Position p)
+{
+    return getChessman(p) != nullptr;
+}
+
 bool Chess::BRD::ChessBoard::isValidMove(Move m)
 {
     /*For a move to be valid

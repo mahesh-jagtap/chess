@@ -11,11 +11,14 @@
 #include "Memory.h"
 #include "GameManager.h"
 #include "ChessBoard.h"
+#include <gtest/gtest.h>
 
 namespace MTR = Chess::BRD::MTR;
 
-int main()
+int main(int argc, char** argv)
 {
+    testing::InitGoogleTest(&argc, argv);
+
     MTR::Material m("Default");
     m.makeSound();
     

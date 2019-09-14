@@ -6,8 +6,10 @@ namespace Chess
 {
     class Pawn : public Chessman
     {
+    protected:
+        bool isChessmanMove(Move m) override;
+        bool isPositionReachable(Move m) override;
     public:
         Pawn(Color c, Chess::BRD::ChessBoard* b) :Chessman(c, b) {};
-        bool isValidMove(Move m) override;
     };
 }

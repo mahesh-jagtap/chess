@@ -1,7 +1,11 @@
 #include "Pawn.h"
 #include "Utility.h"
 
-bool Chess::Pawn::isValidMove(Move m)
+bool Chess::Pawn::isChessmanMove(Move m)
 {
-    return true;
+    return false;
+}
+bool Chess::Pawn::isPositionReachable(Move m)
+{
+    return false;
 }

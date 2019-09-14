@@ -2,7 +2,7 @@
 #include<vector>
 #include "Utility.h"
 
-bool Chess::Bishop::isValidMove(Move m)
+bool Chess::Bishop::isChessmanMove(Move m)
 {
     //Check if the difference is divisible by 7 or 9
     //If yes, then check for all positions in between:
@@ -12,12 +12,12 @@ bool Chess::Bishop::isValidMove(Move m)
     Position from = m.first;
     Position to = m.second;
     Position diff = std::abs(from - to);
+    Color from_color = m_board->getChessman(from)->getColor();
 
     if ((diff % 9 != 0) and (diff % 7 != 0))
         return false;
 
     Position current_position = from;
-    Color from_color = m_board->getChessman(from)->getColor();
     
     std::vector<int> inc{ 9, 7 };
     int factor{ 1 };
@@ -33,6 +33,10 @@ bool Chess::Bishop::isValidMove(Move m)
         {
             current_position += factor * i;
             ptr<Chess::Chessman> current_chessman = m_board->getChessman(current_position);
+
+            if (current_position == to and (!current_chessman or current_chessman->getColor() != from_color))
+                return true;
+
             if (current_chessman)
             {
                 if (current_position != to)
@@ -54,5 +58,10 @@ bool Chess::Bishop::isValidMove(Move m)
         }
     }
 
+    return false;
+}
+
+bool Chess::Bishop::isPositionReachable(Move m)
+{
     return false;
 }
